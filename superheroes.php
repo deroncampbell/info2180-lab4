@@ -1,4 +1,5 @@
 <?php
+$search_txt = $_GET['query'];
 
 $superheroes = [
   [
@@ -62,11 +63,34 @@ $superheroes = [
       "biography" => "Notably powerful, Wanda Maximoff has fought both against and with the Avengers, attempting to hone her abilities and do what she believes is right to help the world.",
   ], 
 ];
-
+if($search_txt==""){
 ?>
 
-<ul>
+<ul style="font-size:25px;">
 <?php foreach ($superheroes as $superhero): ?>
   <li><?= $superhero['alias']; ?></li>
 <?php endforeach; ?>
 </ul>
+<?php }
+
+else{ 
+	$found = false;
+	foreach ($superheroes as $superhero): 
+  		if($superhero['name']==$search_txt || $superhero['alias']==$search_txt){
+			?>
+			<h3><?php echo $superhero['alias']; ?></h3>
+            <h4>A.K.A <?php echo $superhero['name']; ?></h4>
+            <br><br>
+            <p><?php echo $superhero['biography']; ?></p>
+			<?php
+            exit();
+			}
+		else{
+			$found = false;
+			}	
+ 	endforeach; 
+	
+	if($found==false){
+		echo "<h3 style='color:#c72523;'>SUPERHERO NOT FOUND</h3>";
+		}
+	 } ?>
